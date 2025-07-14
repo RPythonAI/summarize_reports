@@ -200,22 +200,20 @@ class ReportProcessorGUI(QWidget):
         self.setLayout(main_layout)
 
         # 1. Prompt Input
-        # New layout for Prompt Label and Load Prompt Button
-        prompt_header_layout = QHBoxLayout()
         prompt_label = QLabel("Prompt Instruction:")
-        prompt_header_layout.addWidget(prompt_label)
-        prompt_header_layout.addStretch(1) # Pushes the button to the right
+        main_layout.addWidget(prompt_label)
 
-        self.load_prompt_btn = QPushButton("Load Prompt from File")
-        self.load_prompt_btn.clicked.connect(self.load_prompt_file)
-        prompt_header_layout.addWidget(self.load_prompt_btn)
-        main_layout.addLayout(prompt_header_layout)
-
-        # Prompt text edit remains below the header
+        prompt_input_layout = QHBoxLayout()
         self.prompt_text_edit = QTextEdit()
         self.prompt_text_edit.setPlaceholderText("Enter your LLM prompt instructions here, or load from file...")
         self.prompt_text_edit.setMinimumHeight(80)
-        main_layout.addWidget(self.prompt_text_edit)
+        self.load_prompt_btn = QPushButton("Load Prompt from File")
+        self.load_prompt_btn.clicked.connect(self.load_prompt_file)
+
+        prompt_input_layout.addWidget(self.prompt_text_edit)
+        prompt_input_layout.addStretch(1)
+        prompt_input_layout.addWidget(self.load_prompt_btn)
+        main_layout.addLayout(prompt_input_layout)
 
         # 2. Bundle Size and Result Merging
         bundle_config_layout = QHBoxLayout() # New layout for this row
